@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  labels:
+    app: auth
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: auth
+        tier: backend
+    spec:
+      containers:
+        - name: auth
+          image: "auth-service:0.1"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ttl
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: ttl
+            - name: port
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: port

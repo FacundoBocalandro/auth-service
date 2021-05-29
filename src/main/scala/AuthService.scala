@@ -48,7 +48,7 @@ object CSVReader {
 }
 
 object AuthServiceServer extends App {
-  val builder = ServerBuilder.forPort(50000)
+  val builder = ServerBuilder.forPort(sys.env.getOrElse("port", "5000").toInt)
 
   builder.addService(
     AuthService.bindService(new MyService(), ExecutionContext.global)
@@ -57,7 +57,7 @@ object AuthServiceServer extends App {
   val server = builder.build()
   server.start()
 
-  println("Running....")
+  println(s"Running on port ${sys.env.getOrElse("port", "not specified")}....")
   server.awaitTermination()
 }
 
@@ -74,10 +74,11 @@ object ClientDemo extends App {
     AuthServiceGrpc.stub(channel)
   }
 
-  val stub1 = createStub("127.0.0.1", 50000)
-  val stub2 = createStub("127.0.0.1", 50001)
+  val stub1 = createStub("10.107.216.205", 8080)
+//  val stub2 = createStub("127.0.0.1", 50001)
 
-  val stubs = List(stub1, stub2)
+//  val stubs = List(stub1, stub2)
+  val stubs = List(stub1)
   val healthyStubs = stubs
 
   val response: Future[GetAuthenticationResponse] = stub1.authentication(User(email = "facundo.bocalandro@ing.austral.edu.ar", password = "skrrrt")) //valid
