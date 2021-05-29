@@ -20,3 +20,10 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "com.thesamet.scalapb" %% "scalapb-json4s" % "0.11.0"
 
+mainClass in assembly := Some("AuthServiceServer")
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", "services", xs @ _*) => MergeStrategy.filterDistinctLines
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}

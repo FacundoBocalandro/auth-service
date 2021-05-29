@@ -23,7 +23,7 @@ class CSVReader extends LocationDatabase {
 
   import CSVReader._
 
-  val data: List[User] = getUsers("src/main/users.csv")
+  val data: List[User] = getUsers("users.csv")
 
   def authenticate(user: User): Status = {
     data.find(_ == user) match {
