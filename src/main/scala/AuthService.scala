@@ -36,7 +36,7 @@ class CSVReader extends LocationDatabase {
 object CSVReader {
 
   def getUsers(filePath: String): List[User] = {
-    val fileSource = Source.fromFile(filePath)
+    val fileSource = Source.fromInputStream(getClass.getClassLoader.getResourceAsStream(filePath))
     val data: List[List[String]] = fileSource.getLines().toList.map(_.split(',').toList)
     fileSource.close()
     data.map {
