@@ -48,7 +48,7 @@ object CSVReader {
 }
 
 object AuthServiceServer extends App {
-  val builder = ServerBuilder.forPort(sys.env.getOrElse("port", "5000").toInt)
+  val builder = ServerBuilder.forPort(sys.env.getOrElse("port", "50000").toInt)
 
   builder.addService(
     AuthService.bindService(new MyService(), ExecutionContext.global)

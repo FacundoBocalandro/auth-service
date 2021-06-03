@@ -26,10 +26,10 @@ spec:
             - name: ttl
               valueFrom:
                 configMapKeyRef:
-                  name: my-config
+                  name: auth-config
                   key: ttl
             - name: port
               valueFrom:
                 configMapKeyRef:
-                  name: my-config
+                  name: auth-config
                   key: port
